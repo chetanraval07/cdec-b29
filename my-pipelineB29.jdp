@@ -27,15 +27,15 @@ pipeline {
 
         stage('TEST STAGE') {
             steps {
-                withSonarQubeEnv('SonarQube') {   // Replace 'SonarQube' with your Jenkins SonarQube server name if different
+                withSonarQubeEnv('SonarQube') {
                     dir('backend') {
-                        sh '''
-                            mvn clean verify sonar:sonar \
-                            -Dsonar.projectKey=my-project-B29 \
-                            -Dsonar.projectName=my-project-B29
-                        '''
-                    }
-                }
+        		sh '''
+            		   mvn clean verify sonar:sonar \
+            		   -Dsonar.projectKey=my-project-B29 \
+            		   -Dsonar.projectName=my-project-B29
+    		        '''
+    		    }
+		}
                 echo 'TEST SUCCESS'
             }
         }
