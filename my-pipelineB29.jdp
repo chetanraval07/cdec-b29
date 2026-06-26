@@ -15,34 +15,28 @@ pipeline {
             }
         }
 
-        stage('BUILD STAGE') {
+        stage ('BUILD STAGE') {
             steps {
-                dir('backend') {
-                    sh 'java -version'
-                    sh 'mvn clean package -DskipTests'
-                }
-                echo 'BUILD SUCCESS'
+              dir('backend') {
+              sh 'java-version'
+              sh 'mvn clean package -DskipTests'
+              }
+              echo 'Build Success'
             }
         }
-
-        stage('TEST STAGE') {
+        stage ('TEST STAGE') {
             steps {
-                withSonarQubeEnv('sonarqube') {
-                    dir('backend') {
-        		sh '''
-            		   mvn sonar:sonar \
-            		   -Dsonar.projectKey=mynewapp \
-            		   -Dsonar.projectName=mynewapp
-    		        '''
-    		    }
-		}
-                echo 'TEST SUCCESS'
+            withSonarQubeEnv('sonarqube') {
+            dir('backend') {
+            sh 'mvn sonar:sonar   -Dsonar.projectKey=mynewapp   -Dsonar.projectName='mynewapp'\\ '
             }
+            }
+            echo 'Test Success'
+           }
         }
-
-        stage('DEPLOY STAGE') {
+        stage ('DEPLOY STAGE') {
             steps {
-                echo 'DEPLOY SUCCESS'
+                echo 'Deploy Success'
             }
         }
     }
