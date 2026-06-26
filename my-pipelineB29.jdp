@@ -27,11 +27,13 @@ pipeline {
 
         stage ('TEST STAGE') {
             steps {
-                mvn clean verify sonar:sonar \
-                -Dsonar.projectKey=my-project-B29 \
-                -Dsonar.projectName='my-project-B29' \
-                -Dsonar.host.url=http://63.181.200.187:9000 \
-                -Dsonar.token=sqp_e53f17141824e41a50fe952aa5820786fc9c2ac5
+              dir('backend') {
+                sh '''mvn sonar:sonar \\
+                 -Dsonar.projectKey=my-project-B29 \\
+                 -Dsonar.projectName=\'my-project-B29\' \\
+                 -Dsonar.host.url=http://63.181.200.187:9000 \\
+                -Dsonar.token=sqp_e53f17141824e41a50fe952aa5820786fc9c2ac5'''
+              }
                 echo 'Test Success'
             }
         }
