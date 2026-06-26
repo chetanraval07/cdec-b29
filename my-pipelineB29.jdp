@@ -24,6 +24,7 @@ pipeline {
                 echo 'BUILD SUCCESS'
             }
         }
+        
 
         stage ('TEST STAGE') {
             steps {
