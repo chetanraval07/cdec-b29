@@ -25,25 +25,25 @@ pipeline {
             }
         }
 
-
-        stage ('TEST STAGE') {
+        stage('TEST STAGE') {
             steps {
-               withSonarQubeEnv(credentialsId: 'SonarQube') {
-                 dir('backend') {
-                  sh '''mvn sonar:sonar \\
-                   -Dsonar.projectKey=my-project-B29 \\
-                   -Dsonar.projectName=\'my-project-B29\' \\
-                   '''
-                 }
-               }
-             echo 'Test Success'
+                withSonarQubeEnv('SonarQube') {   // Replace 'SonarQube' with your Jenkins SonarQube server name if different
+                    dir('backend') {
+                        sh '''
+                            mvn clean verify sonar:sonar \
+                            -Dsonar.projectKey=my-project-B29 \
+                            -Dsonar.projectName=my-project-B29
+                        '''
+                    }
+                }
+                echo 'TEST SUCCESS'
             }
         }
-        stage ('DEPLOY STAGE') {
+
+        stage('DEPLOY STAGE') {
             steps {
-                echo 'Deploy Success'
+                echo 'DEPLOY SUCCESS'
             }
         }
     }
 }
-
