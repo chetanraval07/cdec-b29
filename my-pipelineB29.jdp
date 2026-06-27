@@ -13,7 +13,7 @@ pipeline {
                     url: 'https://github.com/chetanraval07/cdec-b29.git'
                 )
 
-                echo 'PULL SUCCESS'
+                echo 'PULL SUCCESS 1'
             }
         }
 
