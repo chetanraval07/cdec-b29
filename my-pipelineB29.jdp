@@ -29,7 +29,7 @@ pipeline {
             }
         }
 
-        stage('SONAR ANALYSIS') {
+        stage('TEST STAGE') {
             steps {
                 dir('backend') {
                     withSonarQubeEnv('SonarQube') {
@@ -44,9 +44,16 @@ pipeline {
                 echo 'SONAR SUCCESS'
             }
         }
-
-        stage('DEPLOY STAGE') {
+        stage('QUALITY-GATE') {
             steps {
+	        timeout(time: 5, unit: 'MINUTES') {
+		waitForQualityGate abortPipeline: true, credentialsId: 'SonarQube'
+                echo 'QUALITY-PASSED'
+                }
+	    }
+        }     
+          
+        stage('DELIVERY STAGE') { steps {
                 echo 'DEPLOY SUCCESS'
             }
         }
