@@ -6,7 +6,7 @@ pipeline {
         PATH = "${JAVA_HOME}/bin:${env.PATH}"
     }
      stages{
-        stage('PULL STAGE') {
+        stage('PULL STAGE-GITHUB') {
             steps {
                 git(
                     branch: 'master',
@@ -17,7 +17,7 @@ pipeline {
             }
         }
 
-        stage('BUILD STAGE') {
+        stage('BUILD STAGE-MAVEN') {
             steps {
                 dir('backend') {
                     sh 'java -version'
@@ -29,7 +29,7 @@ pipeline {
             }
         }
 
-        stage('TEST STAGE') {
+        stage('TEST STAGE-SONARQUBE') {
             steps {
                 dir('backend') {
                     withSonarQubeEnv('SonarQube') {
