@@ -1,0 +1,38 @@
+pipeline {
+     agent any 
+       stages {
+         stage ('PULL STAGE') { 
+	   steps {
+                git 'https://github.com/chetanraval07/batch2728-project.git'
+                echo 'PULL SUCCESS'
+           }
+         }
+	 stage ('TERRAFORM-INIT & PLAN') {
+	   steps {
+	       sh '''
+	       terraform init -reconfigure
+	       terraform plan
+	       '''
+	    }
+	 }
+
+	 stage ('APPROVAL') {
+	   steps {
+	       timeout(time: 30, unit: 'MINUTES') {
+                    input message: 'Approval is required. Shall we proceed?, OK : "Approve"'
+	   
+	       }
+	   }
+	 }
+
+	 stage ('TERRAFORM-APPLY') {
+	   steps { 
+	       sh '''
+	       terraform apply --auto-approve
+	       '''
+           }
+	 }
+
+       }
+}
+
