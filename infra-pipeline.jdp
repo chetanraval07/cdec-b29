@@ -3,7 +3,7 @@ pipeline {
        stages {
          stage ('PULL STAGE') { 
 	   steps {
-                git 'https://github.com/chetanraval07/batch2728-project.git'
+                git 'https://github.com/chetanraval07/cdec-b29.git'
                 echo 'PULL SUCCESS'
            }
          }
